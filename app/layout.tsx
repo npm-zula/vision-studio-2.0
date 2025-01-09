@@ -2,6 +2,7 @@ import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "@/components/theme-provider"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import "./globals.css"
 
@@ -32,8 +33,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster position="bottom-right" />
+          <TooltipProvider>
+            {children}
+            <Toaster position="bottom-right" />
+          </TooltipProvider>
         </ThemeProvider>
         <Analytics />
       </body>
