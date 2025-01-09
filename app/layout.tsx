@@ -1,35 +1,42 @@
-import './globals.css';
-import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
-import { UserProvider } from '@/lib/auth';
-import { getUser } from '@/lib/db/queries';
+import { Inter } from "next/font/google"
+import { Analytics } from "@vercel/analytics/react"
+import { Toaster } from "sonner"
+import { ThemeProvider } from "@/components/theme-provider"
+import { cn } from "@/lib/utils"
+import "./globals.css"
 
-export const metadata: Metadata = {
-  title: 'Next.js SaaS Starter',
-  description: 'Get started quickly with Next.js, Postgres, and Stripe.',
-};
+const inter = Inter({ subsets: ["latin"] })
 
-export const viewport: Viewport = {
-  maximumScale: 1,
-};
-
-const manrope = Manrope({ subsets: ['latin'] });
+export const metadata = {
+  title: "Vision Studio - AI-Powered Computer Vision Training Platform",
+  description:
+    "Train and deploy computer vision models with ease. Upload, annotate, and manage your datasets in a powerful, intuitive interface.",
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  let userPromise = getUser();
-
   return (
-    <html
-      lang="en"
-      className={`bg-white dark:bg-gray-950 text-black dark:text-white ${manrope.className}`}
-    >
-      <body className="min-h-[100dvh] bg-gray-50">
-        <UserProvider userPromise={userPromise}>{children}</UserProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          inter.className
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster position="bottom-right" />
+        </ThemeProvider>
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }
