@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/select"
 import { toast } from "sonner"
 import { ImageGrid } from "./components/image-grid"
+import { BackButton } from "@/components/back-button"
+import { Separator } from "@/components/ui/separator"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 // Dummy data for images
 const dummyImages = [
@@ -99,7 +102,18 @@ export default function ImagesPage() {
   }, [images, filter])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <BackButton />
+          <Breadcrumbs />
+        </div>
+        <h3 className="text-lg font-medium">Project Images</h3>
+        <p className="text-sm text-muted-foreground">
+          Manage and organize your project's image dataset
+        </p>
+      </div>
+      <Separator />
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-medium">Project Images</h2>

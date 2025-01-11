@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import "./globals.css"
+import { ClientLayout } from "@/components/client-layout"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -34,7 +35,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            {children}
+            <ClientLayout>
+              {children}
+            </ClientLayout>
             <Toaster position="bottom-right" />
           </TooltipProvider>
         </ThemeProvider>

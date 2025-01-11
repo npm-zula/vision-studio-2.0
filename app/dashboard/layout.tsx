@@ -12,6 +12,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { PageTransition } from "@/components/page-transition"
 
 const navigation = [
   {
@@ -98,7 +99,9 @@ export default function DashboardLayout({
             </h1>
           </div>
         </div>
-        <div className="p-6">{children}</div>
+        <div className="p-6">
+          <PageTransition>{children}</PageTransition>
+        </div>
       </div>
     </div>
   )

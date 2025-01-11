@@ -24,6 +24,8 @@ import { toast } from "sonner"
 import { AnnotationCanvas } from "./components/annotation-canvas"
 import { AnnotationTools } from "./components/annotation-tools"
 import { LabelList } from "./components/label-list"
+import { BackButton } from "@/components/back-button"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 // Dummy data - in a real app, this would come from your backend
 const dummyImage = {
@@ -101,15 +103,11 @@ export default function AnnotatePage() {
       {/* Header */}
       <div className="flex h-14 items-center justify-between border-b px-4">
         <div className="flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.back()}
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
+          <BackButton />
           <div>
-            <h2 className="text-lg font-medium">Image Annotation</h2>
+            <div className="mb-1">
+              <Breadcrumbs />
+            </div>
             <p className="text-sm text-muted-foreground">
               {dummyImage.name}
             </p>

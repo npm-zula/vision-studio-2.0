@@ -21,6 +21,8 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { BackButton } from "@/components/back-button"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { TrainingMetrics } from "./components/training-metrics"
 
 const trainingConfigSchema = z.object({
@@ -54,6 +56,7 @@ const defaultValues: Partial<TrainingConfig> = {
 export default function TrainPage() {
   const router = useRouter()
   const params = useParams()
+  const [activeTab, setActiveTab] = React.useState("config")
   const form = useForm<TrainingConfig>({
     resolver: zodResolver(trainingConfigSchema),
     defaultValues,
@@ -62,22 +65,24 @@ export default function TrainPage() {
   function onSubmit(data: TrainingConfig) {
     toast.success("Training started successfully")
     console.log(data)
-    // Simulate training delay and then navigate to test page
-    setTimeout(() => {
-      router.push(`/dashboard/projects/${params.id}/test`)
-    }, 1500)
+    // Switch to metrics tab
+    setActiveTab("metrics")
   }
 
   return (
     <div className="space-y-6 p-6">
-      <div>
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <BackButton />
+          <Breadcrumbs projectName={params.id as string} />
+        </div>
         <h3 className="text-lg font-medium">Model Training</h3>
         <p className="text-sm text-muted-foreground">
           Configure and monitor your model training process
         </p>
       </div>
       <Separator />
-      <Tabs defaultValue="config" className="space-y-4">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList>
           <TabsTrigger value="config">Configuration</TabsTrigger>
           <TabsTrigger value="metrics">Training Metrics</TabsTrigger>
@@ -296,11 +301,28 @@ export default function TrainPage() {
                 )}
               />
 
-              <Button type="submit">Start Training</Button>
+              <div className="flex items-center gap-4">
+                <Button type="submit">Start Training</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.push(`/dashboard/projects/${params.id}/test`)}
+                >
+                  Go to Testing
+                </Button>
+              </div>
             </form>
           </Form>
         </TabsContent>
         <TabsContent value="metrics">
+          <div className="mb-6">
+            <Button
+              variant="outline"
+              onClick={() => router.push(`/dashboard/projects/${params.id}/test`)}
+            >
+              Go to Testing
+            </Button>
+          </div>
           <TrainingMetrics />
         </TabsContent>
       </Tabs>

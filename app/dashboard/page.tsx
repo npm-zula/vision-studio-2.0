@@ -1,6 +1,7 @@
 "use client"
 
 import { BarChart3, Eye, FolderKanban, Image, Users } from "lucide-react"
+import { PerformanceChart } from "@/components/dashboard/performance-chart"
 
 import {
   Card,
@@ -44,7 +45,7 @@ export default function DashboardPage() {
         {stats.map((stat) => {
           const Icon = stat.icon
           return (
-            <Card key={stat.title}>
+            <Card key={stat.title} className="hover-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   {stat.title}
@@ -63,21 +64,9 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle>Model Performance</CardTitle>
-            <CardDescription>
-              Model accuracy and training progress over time
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[200px] flex items-center justify-center text-muted-foreground">
-              Chart placeholder
-            </div>
-          </CardContent>
-        </Card>
+        <PerformanceChart />
 
-        <Card className="col-span-3">
+        <Card className="col-span-3 hover-card">
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>
@@ -89,7 +78,7 @@ export default function DashboardPage() {
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-4 rounded-lg border p-4"
+                  className="flex items-center gap-4 rounded-lg border p-4 hover:bg-muted/50 transition-colors"
                 >
                   <div className="flex-1 space-y-1">
                     <p className="text-sm font-medium leading-none">

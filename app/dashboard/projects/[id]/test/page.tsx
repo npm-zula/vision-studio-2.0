@@ -2,13 +2,16 @@
 
 import * as React from "react"
 import { useParams } from "next/navigation"
-import { Upload, BarChart2, Crosshair, Layers } from "lucide-react"
+import { Upload, BarChart2, Crosshair } from "lucide-react"
 import { useDropzone } from "react-dropzone"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
+import { BackButton } from "@/components/back-button"
+import { Breadcrumbs } from "@/components/breadcrumbs"
+import { ConfusionMatrix } from "@/components/confusion-matrix"
 import { toast } from "sonner"
 
 // Dummy test results data
@@ -59,7 +62,11 @@ export default function TestPage() {
 
   return (
     <div className="space-y-6 p-6">
-      <div>
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <BackButton />
+          <Breadcrumbs />
+        </div>
         <h3 className="text-lg font-medium">Model Testing</h3>
         <p className="text-sm text-muted-foreground">
           Evaluate your trained model's performance on test images
@@ -173,21 +180,7 @@ export default function TestPage() {
       </div>
 
       {/* Confusion Matrix */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Layers className="h-5 w-5" />
-            <span>Confusion Matrix</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px] rounded-lg border bg-muted p-6">
-            <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-              Confusion matrix visualization will be implemented here
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <ConfusionMatrix data={testResults.confusionMatrix} />
     </div>
   )
 } 
