@@ -69,13 +69,34 @@ pnpm dev
 ## Project Structure
 
 ```
-├── app/                    # Core application
-│   ├── dashboard/         # Main workspace
-│   │   ├── projects/     # Project management
-│   │   └── analytics/    # Performance tracking
-│   └── api/              # Backend services
-├── components/            # UI components
-└── public/               # Static assets
+├── app/                      # Next.js app directory
+│   ├── (auth)/              # Authentication routes
+│   ├── dashboard/           # Main dashboard
+│   ├── globals.css          # Global styles
+│   ├── layout.tsx           # Root layout
+│   └── page.tsx             # Landing page
+├── components/              # Reusable components
+│   ├── dashboard/          # Dashboard-specific components
+│   ├── layout/             # Layout components
+│   ├── ui/                 # Shadcn UI components
+│   ├── back-button.tsx     # Navigation component
+│   ├── breadcrumbs.tsx     # Navigation breadcrumbs
+│   ├── client-layout.tsx   # Client-side layout wrapper
+│   ├── confusion-matrix.tsx # ML evaluation component
+│   ├── page-transition.tsx # Page transition animations
+│   ├── theme-provider.tsx  # Dark/light mode provider
+│   ├── theme-toggle.tsx    # Theme switcher
+│   └── user-nav.tsx        # User navigation
+├── lib/                    # Utility functions
+├── public/                 # Static assets
+├── styles/                 # Additional styles
+├── .env.example           # Environment variables template
+├── components.json        # Shadcn UI config
+├── next.config.js         # Next.js configuration
+├── package.json           # Project dependencies
+├── postcss.config.js      # PostCSS configuration
+├── tailwind.config.ts     # Tailwind configuration
+└── tsconfig.json          # TypeScript configuration
 ```
 
 ## Workflow
