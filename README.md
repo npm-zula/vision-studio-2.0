@@ -1,126 +1,113 @@
-# Next.js SaaS Starter
+# Vision Studio
 
-This is a starter template for building a SaaS application using **Next.js** with support for authentication, Stripe integration for payments, and a dashboard for logged-in users.
+A modern, full-stack computer vision platform for training and deploying AI models. Vision Studio provides an intuitive interface for managing datasets, annotating images, training models, and evaluating their performance.
 
-**Demo: [https://next-saas-start.vercel.app/](https://next-saas-start.vercel.app/)**
+## Core Features
 
-<details>
-  <summary>Why did I make this?</summary>
-  
-  In 2020, I made a course called "React 2025" which showed how to build a SaaS application with Next.js, Stripe, and other tools.
+### 🖼️ Dataset Management
+- Intuitive drag-and-drop image upload
+- Bulk import capabilities
+- Smart dataset organization
+- Advanced filtering and search
+- Automated metadata extraction
 
-Well, it's almost 2025 and React 19 has brought so many amazing new features I didn't predict! This repo is a demonstration of the latest React and Next.js patterns. These patterns can drastically simplify some common tasks in building your SaaS, like building forms, talking to your database, and more.
+### 🏷️ Annotation Workspace
+- Powerful annotation tools
+- AI-assisted labeling
+- Real-time collaboration
+- Version control for annotations
+- Custom label hierarchies
 
-For example, React now has built in hooks like `useActionState` to handle inline form errors and pending states. React Server Actions can replace a lot of boilerplate code needed to call an API Route from the client-side. And finally, the React `use` hook combined with Next.js makes it incredibly easy to build a powerful `useUser()` hook.
+### 🤖 Model Training
+- State-of-the-art architectures
+- Advanced hyperparameter tuning
+- Real-time training insights
+- Automated data augmentation
+- Transfer learning support
 
-We're able to fetch the user from our Postgres database in the root layout, but _not_ await the `Promise`. Instead, we forward the `Promise` to a React context provider, where we can "unwrap" it and awaited the streamed in data. This means we can have the best of both worlds: easy code to fetch data from our database (e.g. `getUser()`) and a React hook we can use in Client Components (e.g. `useUser()`).
+### 📊 Evaluation & Analytics
+- Comprehensive performance metrics
+- Interactive confusion matrices
+- Cross-validation analysis
+- Batch inference testing
+- Custom report generation
 
-Fun fact: the majority of the UI for this application was built with [v0](https://v0.dev) 🤯 [More details here](https://x.com/leeerob/status/1835777934361084316) if you want to learn about this repo.
+## Technology
 
-</details>
-
-## Features
-
-- Marketing landing page (`/`) with animated Terminal element
-- Pricing page (`/pricing`) which connects to Stripe Checkout
-- Dashboard pages with CRUD operations on users/teams
-- Basic RBAC with Owner and Member roles
-- Subscription management with Stripe Customer Portal
-- Email/password authentication with JWTs stored to cookies
-- Global middleware to protect logged-in routes
-- Local middleware to protect Server Actions or validate Zod schemas
-- Activity logging system for any user events
-
-## Tech Stack
-
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Database**: [Postgres](https://www.postgresql.org/)
-- **ORM**: [Drizzle](https://orm.drizzle.team/)
-- **Payments**: [Stripe](https://stripe.com/)
-- **UI Library**: [shadcn/ui](https://ui.shadcn.com/)
+- **Frontend**: Next.js 14 with TypeScript
+- **UI**: Tailwind CSS, Shadcn UI, Radix UI
+- **Visualization**: Recharts
+- **Validation**: React Hook Form + Zod
+- **File Handling**: React Dropzone
 
 ## Getting Started
 
+### Requirements
+- Node.js 18.17+
+- npm or yarn
+
+### Setup
+
+1. Clone Vision Studio:
 ```bash
-git clone https://github.com/leerob/next-saas-starter
-cd next-saas-starter
-pnpm install
+git clone [repository-url]
+cd vision-studio
 ```
 
-## Running Locally
-
-Use the included setup script to create your `.env` file:
-
+2. Install dependencies:
 ```bash
-pnpm db:setup
+npm install
+# or
+yarn install
 ```
 
-Then, run the database migrations and seed the database with a default user and team:
-
+3. Start development server:
 ```bash
-pnpm db:migrate
-pnpm db:seed
+npm run dev
+# or
+yarn dev
 ```
 
-This will create the following user and team:
+4. Open [http://localhost:3000](http://localhost:3000)
 
-- User: `test@test.com`
-- Password: `admin123`
+## Project Structure
 
-You can, of course, create new users as well through `/sign-up`.
-
-Finally, run the Next.js development server:
-
-```bash
-pnpm dev
+```
+├── app/                    # Core application
+│   ├── dashboard/         # Main workspace
+│   │   ├── projects/     # Project management
+│   │   └── analytics/    # Performance tracking
+│   └── api/              # Backend services
+├── components/            # UI components
+└── public/               # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
+## Workflow
 
-Optionally, you can listen for Stripe webhooks locally through their CLI to handle subscription change events:
+1. **Dataset Creation**
+   - Upload images individually or in bulk
+   - Organize into collections
+   - Apply metadata and tags
 
-```bash
-stripe listen --forward-to localhost:3000/api/stripe/webhook
-```
+2. **Image Annotation**
+   - Create custom label sets
+   - Use AI-assisted labeling
+   - Review and validate annotations
 
-## Testing Payments
+3. **Model Development**
+   - Configure training parameters
+   - Monitor training progress
+   - Track experiments
 
-To test Stripe payments, use the following test card details:
+4. **Deployment & Testing**
+   - Evaluate model metrics
+   - Run batch predictions
+   - Export trained models
 
-- Card Number: `4242 4242 4242 4242`
-- Expiration: Any future date
-- CVC: Any 3-digit number
+## Contributing
 
-## Going to Production
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-When you're ready to deploy your SaaS application to production, follow these steps:
+## License
 
-### Set up a production Stripe webhook
-
-1. Go to the Stripe Dashboard and create a new webhook for your production environment.
-2. Set the endpoint URL to your production API route (e.g., `https://yourdomain.com/api/stripe/webhook`).
-3. Select the events you want to listen for (e.g., `checkout.session.completed`, `customer.subscription.updated`).
-
-### Deploy to Vercel
-
-1. Push your code to a GitHub repository.
-2. Connect your repository to Vercel and deploy it.
-3. Follow the Vercel deployment process, which will guide you through setting up your project.
-
-### Add environment variables
-
-In your Vercel project settings (or during deployment), add all the necessary environment variables. Make sure to update the values for the production environment, including:
-
-1. `BASE_URL`: Set this to your production domain.
-2. `STRIPE_SECRET_KEY`: Use your Stripe secret key for the production environment.
-3. `STRIPE_WEBHOOK_SECRET`: Use the webhook secret from the production webhook you created in step 1.
-4. `POSTGRES_URL`: Set this to your production database URL.
-5. `AUTH_SECRET`: Set this to a random string. `openssl rand -base64 32` will generate one.
-
-## Other Templates
-
-While this template is intentionally minimal and to be used as a learning resource, there are other paid versions in the community which are more full-featured:
-
-- https://achromatic.dev
-- https://shipfa.st
-- https://makerkit.dev
+Vision Studio is licensed under the MIT License - see [LICENSE.md](LICENSE.md) for details.
