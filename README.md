@@ -44,7 +44,7 @@ A modern, full-stack computer vision platform for training and deploying AI mode
 
 ### Requirements
 - Node.js 18.17+
-- npm or yarn
+- pnpm 8+
 
 ### Setup
 
@@ -56,16 +56,12 @@ cd vision-studio
 
 2. Install dependencies:
 ```bash
-npm install
-# or
-yarn install
+pnpm install
 ```
 
 3. Start development server:
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000)
